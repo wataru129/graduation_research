@@ -8,8 +8,8 @@ k_max   = 400;  % Max of reiteration
 %%%%%%%%%%%%%%%%%%%%%%
 
 %%%PSO-Algolism%%%%%
-x_init          = 5*IP(1:m,1:dimension,C).';
-v_init          = IP(1:m,1:dimension,C).';
+x_init          = 5*IP(1:m,1:dimension,T).';
+v_init          = IP(1:m,1:dimension,T).';
 idx             = kmeans(x_init.',clusta);
 for c_index=1:clusta
     ct             = 1;
