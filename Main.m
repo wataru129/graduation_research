@@ -1,5 +1,5 @@
 clear
-global dimension f_number
+global dimension f_number clusta
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%% Explain using Calculate_valuetion or Script %%%%%%%%%%%
 %{
@@ -26,9 +26,10 @@ add_sample_num   = 10;   %The number of addtional sample point
 max_sample_num   = 300;  %The number of max sample point
 Cr               = 10;    %Concentrated Search parameter
 f_number         = 3;
-T_max            = 10;
-result_point = zeros(dimension,T_max);
-result = zeros(T_max,1);
+clusta           = 3;
+T_max            = 1;
+result_point = zeros(dimension,clusta+1,T_max);
+result = zeros(T_max,clusta+1);
 %%%%%%%%%%%%%%%%%%%% Finish parameter setting %%%%%%%%%%%%%%%
 Range
 
@@ -44,12 +45,16 @@ for T=1:T_max
         Evaluate_Update
         suii(C)=Calculate_value(best_sample_point);
     end
-    result_point(:,T) = best_sample_point;
-    result(T) = Calculate_value(best_sample_point);
+    result_point(:,:,T) = [best_sample_point x_pso];
+    for i = 1:clusta+1
+        result(T,i) = Calculate_value(result_point(:,i,T));
+    end
 end
 %%%%%%%%%%%%%%% FINISH MAIN PROGRAM %%%%%%%%%%%%%%%
 
+%{
 heikin  = mean2(result)
 nice    = min(result)
 bad     = max(result)
 hennsa  = std(result)
+%}

@@ -2,14 +2,14 @@
 w_pso   = 0.729;
 c1  = 1.4955;
 c2  = 1.4955;
-clusta = 3;
-m       = 300;   %The number of Particle
-k_max   = 1000;  % Max of reiteration
+%clusta = 3;
+m       = 100;   %The number of Particle
+k_max   = 400;  % Max of reiteration
 %%%%%%%%%%%%%%%%%%%%%%
 
 %%%PSO-Algolism%%%%%
-x_init          = 5*IP(1:m,1:dimension,T).';
-v_init          = IP(1:m,1:dimension,T).';
+x_init          = 5*IP(1:m,1:dimension,C).';
+v_init          = IP(1:m,1:dimension,C).';
 idx             = kmeans(x_init.',clusta);
 for c_index=1:clusta
     ct             = 1;
@@ -26,22 +26,23 @@ for c_index=1:clusta
     pbest   = x_p;
     fpbest=zeros(1,m);
     gbest=pbest(:,1);
-    fgbest  = Calculate_value(gbest);
+    fgbest  = func_response_surface(gbest, cur_sample_num, omega, r, sample_point);
     for i=1:class(c_index)
-        fpbest(i)=Calculate_value(pbest(:,i));
+        fpbest(i)=func_response_surface(pbest(:,i), cur_sample_num, omega, r, sample_point);
         if fpbest(i)<fgbest
             gbest=pbest(:,i);
             fgbest=fpbest(i);
         end
     end
     for k=1:k_max
+%        disp(k);
         w=1/(8*k)+0.7;
         temp_fpbest=zeros(1,m);
         for i=1:class(c_index)
             v_p(:,i)=w*v_p(:,i)+c1*rand*(pbest(:,i)-x_p(:,i))+c2*rand*(gbest-x_p(:,i));
             x_p(:,i)=x_p(:,i)+v_p(:,i);
 %%%Step 3%%%%pbest,gbest[update]
-            temp_fpbest(i)=Calculate_value(x_p(:,i));
+            temp_fpbest(i)=func_response_surface(x_p(:,i), cur_sample_num, omega, r, sample_point);
             if(temp_fpbest(i)<fpbest(i))
                 pbest(:,i)=x_p(:,i);
                 fpbest(i) = temp_fpbest(i);
@@ -52,5 +53,5 @@ for c_index=1:clusta
             end
         end
     end
-    x_pso(:,clusta) = gbest;
+    x_pso(:,c_index) = gbest;
 end

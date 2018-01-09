@@ -26,7 +26,8 @@ if up_status == 1
     best_case = 1;
     add_point = Neighborhood(N_good,best_sample_point,Area_x,add_point);
     if N_sparse ~=0
-        Sparse_areas
+        %Sparse_area
+        only_congestion
     else
         add_point=[add_point x_pso];
     end
@@ -41,7 +42,8 @@ else
         best_case = 1;
         add_point = Neighborhood(N_good,best_sample_point,Area_x,add_point);
         if N_sparse ~=0
-            Sparse_area
+            %Sparse_area
+            only_congestion
         else
             add_point=[add_point x_pso];
         end
@@ -53,7 +55,8 @@ else
         best_case  = 2;
         add_point = Neighborhood(N_good-x_best_times,x_pso,Area_x,add_point);
         if N_sparse ~=0
-            Sparse_area
+            %Sparse_area
+            only_congestion
         else
             add_point=[add_point x_pso];
         end
