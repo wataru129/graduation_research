@@ -2,9 +2,17 @@
 add_point      = [];  %Init additional sample point
 add_point_temp = [];  %Init temporary sample point
 N_sparse        = floor((1-(C/C_total))*add_sample_num+0.5); %Number of sparse area
-N_good          = add_sample_num-N_sparse;  %Number of good area
+N_good          = add_sample_num - N_sparse - 3;  %Number of good area
+
+%{
+if N_good < clusta
+    N_good   = clusta;
+    N_sparse = add_sample_num - clusta;
+end
+%}
+
 for i = 1:dimension
-   % Area_x(i)=((1-(-1))/2)*(1-(Cr/(C_total+1)));  %caluculate Area_x
+   % Area_x(i)=((1-(-1))/2)*(1-(Cr/(C_total+1)));
     Area_x(i,1) = (upper_limit-low_limit)/Cr;
 end
 
@@ -18,7 +26,7 @@ if up_status == 1
     best_case = 1;
     add_point = Neighborhood(N_good,best_sample_point,Area_x,add_point);
     if N_sparse ~=0
-        Sparse_area2
+        Sparse_areas
     else
         add_point=[add_point x_pso];
     end
@@ -33,7 +41,7 @@ else
         best_case = 1;
         add_point = Neighborhood(N_good,best_sample_point,Area_x,add_point);
         if N_sparse ~=0
-            Sparse_area2
+            Sparse_area
         else
             add_point=[add_point x_pso];
         end
@@ -45,13 +53,13 @@ else
         best_case  = 2;
         add_point = Neighborhood(N_good-x_best_times,x_pso,Area_x,add_point);
         if N_sparse ~=0
-            Sparse_area2
+            Sparse_area
         else
             add_point=[add_point x_pso];
         end
     end
 end
-%disp(size(add_point,2));
+
 %%%%%%%%%%%%% Judgement of additional sample point %%%%%%%%%%%%%
 %/// If it is outside the range, return it to the end point ///%
 for i = 1:add_sample_num
@@ -64,11 +72,3 @@ for i = 1:add_sample_num
         end
     end
 end
-%{
-for i=1:add_sample_num
-    for j = 1:dimension
-        add_point(j,i) = (upper_limit+low_limit)./2 ...
-                          +((upper_limit-low_limit)./2).*add_point(j,i);
-    end
-end
-%}

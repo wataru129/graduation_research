@@ -39,7 +39,7 @@ for T=1:T_max
 %%%%%%%%%%%%%%% START MAIN PROGRAM %%%%%%%%%%%%%%%
     while max_sample_num > cur_sample_num
         RBFN
-        PSO
+        pso_kmeans_xclusta
         Add_point
         Evaluate_Update
         suii(C)=Calculate_value(best_sample_point);

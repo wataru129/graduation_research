@@ -3,8 +3,14 @@ function [add_point] = Neighborhood(Times,good,Area_x,add_point)
 global dimension
     add_tmp=[];
     for J=1:Times
-        for i=1:dimension
-            add_tmp(i,J)=(good(i)+2*rand*Area_x(i))-Area_x(i);
+        if length(good,2) >1
+            for i=1:dimension
+                add_tmp(i,J)=(good(i,randn)+2*rand*Area_x(i))-Area_x(i);
+            end
+        else
+            for i=1:dimension
+                add_tmp(i,J)=(good(i)+2*rand*Area_x(i))-Area_x(i);
+            end
         end
     end
     add_point=[add_point add_tmp];
