@@ -15,5 +15,9 @@ for h = 1:cur_sample_num
 end
 sample_val                  = add_val;
 [best_val,index]              = min(sample_val);   %find best val
-best_sample_point            = sample_point(:,index); %find best sample point
+
+best_val =ones(1,clusta)*best_val;
+for c_index=1:clusta
+    best_sample_point(:,c_index)            = sample_point(:,index); %find best sample point
+end
 %%%%%%%%%%%%%%% Finish setting %%%%%%%%%%%%%%%

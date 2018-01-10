@@ -28,5 +28,4 @@ end
 [sample_distance_max index]    = max(sample_distance);
 selected_point                 = candidate(:,index);
 add_temp(:,S+N_good)=selected_point;
-%sp_count             = sp_count + 1;
 

@@ -14,3 +14,7 @@ end
 if f_number==5
     upper_limit=100; low_limit=-100;
 end
+
+if f_number==13
+    upper_limit=5; low_limit=-5;
+end

@@ -18,7 +18,7 @@ best_num               = [];  % The index of best
 %ix                    = 1;  % ??
 C                      = 1;
 count_sample_add       = 1;  % The count of additional sample point
-up_status              = 1;
+up_status              = ones(3);
 cur_sample_num         = ini_sample_num;
 C_total                = ceil((max_sample_num-ini_sample_num) ...
                                 /add_sample_num);

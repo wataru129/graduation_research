@@ -1,10 +1,10 @@
 %%%PSO-parameter%%%%%%%
-w_pso   = 0.729;
-c1  = 1.4955;
-c2  = 1.4955;
-%clusta = 3;
-m       = 100;   %The number of Particle
-k_max   = 400;  % Max of reiteration
+%w_pso   = 0.729;
+%w_pso   = 0.7;
+c1      = 1.4955;
+c2      = 1.4955;
+m       = 300;   %The number of Particle
+k_max   = 300;  % Max of reiteration
 %%%%%%%%%%%%%%%%%%%%%%
 
 %%%PSO-Algolism%%%%%
@@ -35,12 +35,22 @@ for c_index=1:clusta
         end
     end
     for k=1:k_max
-%        disp(k);
-        w=1/(8*k)+0.7;
+        w_pso=1/(8*k)+0.7;
         temp_fpbest=zeros(1,m);
         for i=1:class(c_index)
-            v_p(:,i)=w*v_p(:,i)+c1*rand*(pbest(:,i)-x_p(:,i))+c2*rand*(gbest-x_p(:,i));
+            v_p(:,i)=w_pso*v_p(:,i)+c1*rand*(pbest(:,i)-x_p(:,i))+c2*rand*(gbest-x_p(:,i));
             x_p(:,i)=x_p(:,i)+v_p(:,i);
+            for j = 1:dimension
+                if x_p(j,i) > upper_limit
+                    x_p(j,i) = upper_limit;
+                elseif v_p(j,i) > upper_limit
+                    v_p(j,i) = upper_limit;
+                elseif x_p(j,i) < low_limit
+                    x_p(j,i) = low_limit;
+                elseif v_p(j,i) < low_limit
+                    v_p(j,i) = low_limit;
+                end
+            end
 %%%Step 3%%%%pbest,gbest[update]
             temp_fpbest(i)=func_response_surface(x_p(:,i), cur_sample_num, omega, r, sample_point);
             if(temp_fpbest(i)<fpbest(i))

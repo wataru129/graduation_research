@@ -20,17 +20,17 @@ Evaluate_Update      => This is evaluation and updating for add point
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%% Parameter setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-clusta           = 3;
+clusta           = 5;
 dimension        = 10;   %The dimension of program
 ini_sample_num   = 50;   %The number of initial sample point
 per_clusta       = 10;   %The number of addtional sample point for clusta
 add_sample_num   = clusta * per_clusta;   %The number of addtional sample point
-max_sample_num   = 300;  %The number of max sample point
-Cr               = 10;    %Concentrated Search parameter
-f_number         = 3;
-T_max            = 1;
-result_point = zeros(dimension,clusta+1,T_max);
-result = zeros(T_max,clusta+1);
+max_sample_num   = 800;  %The number of max sample point
+Cr               = ones(clusta)*10;    %Concentrated Search parameter
+f_number         = 13;
+T_max            = 10;
+result_point = zeros(dimension,clusta,T_max);
+result = zeros(T_max,clusta);
 %%%%%%%%%%%%%%%%%%%% Finish parameter setting %%%%%%%%%%%%%%%
 Range
 
@@ -46,8 +46,8 @@ for T=1:T_max
         Evaluate_Update
         %suii(C)=Calculate_value(best_sample_point);
     end
-    result_point(:,:,T) = [best_sample_point x_pso];
-    for i = 1:clusta+1
+    result_point(:,:,T) = best_sample_point;
+    for i = 1:clusta
         result(T,i) = Calculate_value(result_point(:,i,T));
     end
 end

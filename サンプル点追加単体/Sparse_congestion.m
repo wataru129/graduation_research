@@ -13,5 +13,5 @@ for j = 1:dimension
     selected_point(j) = sort_point(index(j),j)+distance_max(j)./2;
 end
 %add_temp(:,S+N_sparse)=selected_point;
-add_temp(:,S)=selected_point;
+add_temp(:,S+N_good)=selected_point;
 %sp_count             = sp_count + 1;
