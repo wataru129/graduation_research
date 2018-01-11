@@ -25,10 +25,10 @@ dimension        = 10;   %The dimension of program
 ini_sample_num   = 50;   %The number of initial sample point
 per_clusta       = 10;   %The number of addtional sample point for clusta
 add_sample_num   = clusta * per_clusta;   %The number of addtional sample point
-max_sample_num   = 800;  %The number of max sample point
+max_sample_num   = 900;  %The number of max sample point
 Cr               = ones(clusta)*10;    %Concentrated Search parameter
 f_number         = 13;
-T_max            = 10;
+T_max            = 1;
 result_point = zeros(dimension,clusta,T_max);
 result = zeros(T_max,clusta);
 %%%%%%%%%%%%%%%%%%%% Finish parameter setting %%%%%%%%%%%%%%%
@@ -40,6 +40,7 @@ for T=1:T_max
     Create_initial_point
 %%%%%%%%%%%%%%% START MAIN PROGRAM %%%%%%%%%%%%%%%
     while max_sample_num > cur_sample_num
+        disp(C);
         RBFN
         pso_kmeans_xclusta
         Add_point

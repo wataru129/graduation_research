@@ -1,10 +1,10 @@
 %%%PSO-parameter%%%%%%%
-%w_pso   = 0.729;
+w_pso   = 0.729;
 %w_pso   = 0.7;
 c1      = 1.4955;
 c2      = 1.4955;
 m       = 300;   %The number of Particle
-k_max   = 300;  % Max of reiteration
+k_max   = 1000;  % Max of reiteration
 %%%%%%%%%%%%%%%%%%%%%%
 
 %%%PSO-Algolism%%%%%
