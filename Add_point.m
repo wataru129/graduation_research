@@ -1,6 +1,9 @@
 %%%%%%%%%%%%%          Initial setting         %%%%%%%%%%%%%
 add_point  = [];  %Init additional sample point
 N_sparse        = floor((1-(C/C_total))*per_clusta+0.5)-1; %Number of sparse area
+if N_sparse < 0
+    N_sparse = 0;
+end
 N_good          = per_clusta - N_sparse - 1;  %Number of good area
 %%%%%%%%%%%%%          Initial setting         %%%%%%%%%%%%%%
 

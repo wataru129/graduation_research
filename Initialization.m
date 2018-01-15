@@ -7,15 +7,7 @@ add_point              = []; % This is vector of sample point
 add_val                = []; % The value of sample point
 best_val               = [];  % Best value in all sample point
 best_num               = [];  % The index of best
-%up_status              = []; % The status of up
-%upper_limit           = []; % Upper limit of sample point
-%lower_limit           = []; % lower limit of sample point
-%sample_best_val_trans = []; % For caluculation of best value transition
-%y_rbf                 = []; % ??
-%sa_trans              = []; % ??
-%sa_max_trans          = []; % ??
-%count                  = 0;  % The count of iteration
-%ix                    = 1;  % ??
+
 C                      = 1;
 count_sample_add       = 1;  % The count of additional sample point
 up_status              = ones(3);

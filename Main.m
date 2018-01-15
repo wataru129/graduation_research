@@ -20,17 +20,17 @@ Evaluate_Update      => This is evaluation and updating for add point
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%% Parameter setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-clusta           = 5;
+clusta           = 1;
 dimension        = 10;   %The dimension of program
 ini_sample_num   = 50;   %The number of initial sample point
 per_clusta       = 10;   %The number of addtional sample point for clusta
 add_sample_num   = clusta * per_clusta;   %The number of addtional sample point
-max_sample_num   = 300;  %The number of max sample point
+max_sample_num   = 3000;  %The number of max sample point
 Cr               = ones(clusta)*10;    %Concentrated Search parameter
-f_number         = 3;
-T_max            = 1;
-result_point = zeros(dimension,clusta,T_max);
-result = zeros(T_max,clusta);
+f_number         = 13;
+T_max            = 50;
+result_point     = zeros(dimension,clusta,T_max);
+result           = zeros(T_max,clusta);
 %%%%%%%%%%%%%%%%%%%% Finish parameter setting %%%%%%%%%%%%%%%
 Range
 
@@ -42,7 +42,8 @@ for T=1:T_max
     while max_sample_num > cur_sample_num
         disp(C);
         RBFN
-        pso_kmeans_xclusta
+        %pso_kmeans_xclusta
+        APSO_kmeans_xclusta
         Add_point
         Evaluate_Update
         %suii(C)=Calculate_value(best_sample_point);
