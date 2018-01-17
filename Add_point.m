@@ -9,49 +9,41 @@ N_good          = per_clusta - N_sparse - 1;  %Number of good area
 
 %%%%%%%%%%%%% Main program of additional point %%%%%%%%%%%%%%%%%%%%%%
 for c_index =1:clusta
-    add_temp   = [];  %Init temporary sample point
-    add_temp_b = [];  %Init temporary sample point near best
-    add_temp_p = [];  %Init temporary sample point near pso
+    add_temp   = [];    %Init temporary adds point
+    add_temp_b = [];    %Init temporary add point near best
+    add_temp_p = [];    %Init temporary add point near pso
+    Area_x     = [];    %Init temporary Arx
+    Area_x_pb     = []; %Init temporary Arx
     for i = 1:dimension
-        % Area_x(i)=((1-(-1))/2)*(1-(Cr/(C_total+1)));
         Area_x(i,1) = (upper_limit-low_limit)/Cr(c_index);
     end
     if up_status(c_index) == 1
+        case_box(C,c_index)=1;
     %%/////////// Case of update best solution ///////////%
         Cr(c_index) = Cr(c_index) + 1;
-        add_temp_p = Neighborhood(N_good,best_sample_point(:,c_index),Area_x);
-        best_case = 1;
+        add_temp_p = Neighborhood(N_good,best_sample_point(:,c_index),Area_x,dimension,c_index);
     else
     %%/////////// Case of NOT update best solution ///////////%
-        distance_p_b = sqrt(sum((x_pso-best_sample_point).^2)); %distance pso and xbest
+        distance_p_b = sqrt(sum((x_pso(:,c_index)-best_sample_point(:,c_index)).^2)); %distance pso and xbest
         Area_x_pb = sum(Area_x);                          %distance Area_x
         if Area_x_pb >= distance_p_b
-        %/// xbest neighborhood ///%
+            case_box(C,c_index)=2;
             Cr(c_index) = Cr(c_index) + 1;
-            add_temp_b =  Neighborhood(N_good,best_sample_point(:,c_index),Area_x);
-            best_case = 1;
+            %/// xbest neighborhood ///%
+            add_temp_b =  Neighborhood(N_good,best_sample_point(:,c_index),Area_x,dimension,c_index);
         else
+            case_box(C,c_index)=3;
             x_best_times = floor(N_good/2);
-        %/// xbest neighborhood ///%
-            add_temp_b = Neighborhood(x_best_times,best_sample_point(:,c_index),Area_x);
-        %/// pso neighborhood ///%
-            add_temp_p = Neighborhood(N_good-x_best_times,x_pso(:,c_index),Area_x);
-            best_case  = 2;
+            %/// xbest neighborhood ///%
+            add_temp_b = Neighborhood(x_best_times,best_sample_point(:,c_index),Area_x,dimension,c_index);
+            %/// pso neighborhood ///%
+            add_temp_p = Neighborhood(N_good-x_best_times,x_pso(:,c_index),Area_x,dimension,c_index);
         end
     end
-    add_temp =[add_temp_b add_temp_p];
-    %Sparse_area
-    only_total
+    add_temp =[add_temp_b add_temp_p];s
+    Only_total
     add_point(:,:,c_index)=[ add_temp  x_pso(:,c_index)];
-%%%%%%%%%%%%% Judgement of additional sample point %%%%%%%%%%%%%
-%/// If it is outside the range, return it to the end point ///%
-    for i = 1:per_clusta
-        for j = 1:dimension
-            if add_point(j,i,c_index) > upper_limit
-                add_point(j,i,c_index) = upper_limit;
-            elseif add_point(j,i,c_index) < low_limit
-                add_point(j,i,c_index) = low_limit;
-            end
-        end
-    end
+    %/// If it is outside the range, return it to the end point ///%
+    add_point(add_point > upper_limit)  = upper_limit;
+    add_point(add_point < low_limit)    = low_limit;
 end

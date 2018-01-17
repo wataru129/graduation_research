@@ -1,10 +1,10 @@
-global  cur_sample_num sample_point
+%global  cur_sample_num sample_point
 %%%%%%%%%%%%%%%%% Evaluate of additional point %%%%%%%%%%%%%%%%%%%%%%%
 add_val = [];
 for c_index =1:clusta
     %/// caluculate value only addtional point ///%
     for h = 1:per_clusta
-        add_val(h,c_index) = Calculate_value(add_point(:,h,c_index));
+        add_val(h,c_index) = Calculate_value(add_point(:,h,c_index),f_number);
     end
     [add_val_min index] = min(add_val(:,c_index)); %Find best in add point
     if  best_val(c_index) > add_val_min

@@ -1,32 +1,22 @@
 candidate=[];
-sample_distance_add_total=[];
+sample_distance_max = [];
+total_point = [];
 sparse_rand_num =100;
 sample_distance=zeros(sparse_rand_num,1);
+total_point = [sample_point add_temp];
 
-for i=1:sparse_rand_num
 %Create random point for additional point
-    for k=1:dimension
-        candidate(k,i) = (-5 + (5+5)*rand);
-    end
-end
+candidate= -5 + (5 - (-5))*rand(dimension,sparse_rand_num);
 
-for J=1:sparse_rand_num
 %Caluculate total distance
-    for i=1:cur_sample_num
-    %Existing point
-        dis                = sqrt(sum((candidate(:,J)-sample_point(:,i)).*2));
-        sample_distance(J) = sample_distance(J)+dis;
-    end
-    for i=1:size(add_temp,2)
-    %Additional point
-        dis                = sqrt(sum((candidate(:,J)-add_temp(:,i)).*2));
-        sample_distance(J) = sample_distance(J)+dis;
-    end
+for J=1:sparse_rand_num
+    candidate_ex    = repelem(candidate(:,J) ,1,cur_sample_num+size(add_temp,2));
+    sample_distance(J) = sum(sqrt(sum((candidate_ex-total_point).*2)));
 end
 
 %Select max distance point
-[sample_distance_max index]    = max(sample_distance);
-selected_point                 = candidate(:,index);
-add_temp(:,S+N_good)=selected_point;
+[sample_distance_max index] = max(sample_distance);
+selected_point              = candidate(:,index);
+add_temp(:,S+N_good)        = selected_point;
 %sp_count             = sp_count + 1;
 

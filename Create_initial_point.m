@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%% Setting initial point %%%%%%%%%%%%%%%
-global sample_point
+%global sample_point
 load InitialPoints_300_100_100
 normal = IP(1:cur_sample_num,1:dimension,T);
 normal = normal.';
@@ -11,7 +11,7 @@ end
 sample_point = add_point;
 
 for h = 1:cur_sample_num
-    add_val(h) = Calculate_value(sample_point(:,h));
+    add_val(h) = Calculate_value(sample_point(:,h),f_number);
 end
 sample_val                  = add_val;
 [best_val,index]              = min(sample_val);   %find best val

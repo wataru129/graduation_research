@@ -1,9 +1,6 @@
-function f_out=Calculate_value(x)
-%ベンチマーク問題
-%global f_number;
-f_number = 13;
-n=length(x); %xの次元
-f_out=0;
+function f_out=Calculate_value(x,f_number)
+    n=length(x); %xの次元
+    f_out=0;
     switch f_number
         case 1 %%% 対象1 %%%
             for i=1:n

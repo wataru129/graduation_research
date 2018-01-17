@@ -65,3 +65,4 @@ for c_index=1:clusta
     end
     x_pso(:,c_index) = gbest;
 end
+result_pso(:,:,C)    = x_pso;
